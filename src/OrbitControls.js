@@ -7,6 +7,8 @@
  */
 /*global THREE, console */
 
+var THREE = require('three');
+
 ( function () {
 
     function OrbitConstraint ( object ) {
@@ -302,7 +304,7 @@
     //    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
     //    Pan - right mouse, or arrow keys / touch: three finter swipe
 
-    THREE.OrbitControls = function ( object, domElement ) {
+    function OrbitControls ( object, domElement ) {
 
         var constraint = new OrbitConstraint( object );
 
@@ -808,10 +810,10 @@
 
     };
 
-    THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
-    THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;
+    OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+    OrbitControls.prototype.constructor = OrbitControls;
 
-    Object.defineProperties( THREE.OrbitControls.prototype, {
+    Object.defineProperties( OrbitControls.prototype, {
 
         object: {
 
@@ -1111,5 +1113,7 @@
         }
 
     } );
+
+    module.exports = OrbitControls;
 
 }() );

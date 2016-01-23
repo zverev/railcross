@@ -1,0 +1,36 @@
+{
+  "name": "railcross",
+  "version": "0.0.1",
+  "description": "winter doobki railcross scene",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify src/index.js -o dist/bundle.js",
+    "watch": "watchify src/index.js -o dist/bundle.js --debug --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zverev/railcross.git"
+  },
+  "keywords": [
+    "doobki",
+    "railcross"
+  ],
+  "author": "jerry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zverev/railcross/issues"
+  },
+  "homepage": "https://github.com/zverev/railcross#readme",
+  "browserify": {
+      "transform": ["brfs"]
+  },
+  "devDependencies": {
+    "brfs": "^1.4.3",
+    "browserify": "^13.0.0",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "three": "^0.73.2"
+  }
+}
