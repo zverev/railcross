@@ -23,7 +23,7 @@ controls = new OrbitControls( camera, renderer.domElement );
 var bumpTexture = new THREE.ImageUtils.loadTexture('resources/heightmap.png');
 bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping;
 // magnitude of normal displacement
-var bumpScale = 200.0;
+var bumpScale = 65.0;
 
 var oceanTexture = new THREE.ImageUtils.loadTexture('resources/dirt-512.jpg');
 oceanTexture.wrapS = oceanTexture.wrapT = THREE.RepeatWrapping;
@@ -34,7 +34,7 @@ sandyTexture.wrapS = sandyTexture.wrapT = THREE.RepeatWrapping;
 var grassTexture = new THREE.ImageUtils.loadTexture('resources/grass-512.jpg');
 grassTexture.wrapS = grassTexture.wrapT = THREE.RepeatWrapping;
 
-var rockyTexture = new THREE.ImageUtils.loadTexture('resources/rock-512.jpg');
+var rockyTexture = new THREE.ImageUtils.loadTexture('resources/snow-rocks-512.jpg');
 rockyTexture.wrapS = rockyTexture.wrapT = THREE.RepeatWrapping;
 
 var snowyTexture = new THREE.ImageUtils.loadTexture('resources/snow-512.jpg');
