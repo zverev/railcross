@@ -15,5 +15,5 @@ void main()
     vec4 grass = (smoothstep(0.28, 0.32, vAmount) - smoothstep(0.35, 0.40, vAmount)) * texture2D( grassTexture, vUV * 20.0 );
     vec4 rocky = (smoothstep(0.30, 0.50, vAmount) - smoothstep(0.40, 0.70, vAmount)) * texture2D( rockyTexture, vUV * 20.0 );
     vec4 snowy = (smoothstep(0.0, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 );
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + snowy; //, 1.0);
+    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + snowy + rocky; //, 1.0);
 }  
