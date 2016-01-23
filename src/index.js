@@ -6,7 +6,7 @@ var heightmapVShader = fs.readFileSync(path.join(__dirname, 'heightmap.vshader')
 var heightmapFShader = fs.readFileSync(path.join(__dirname, 'heightmap.fshader'), 'utf-8');
 
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 camera.position.set(0, 100, 400);
 camera.lookAt(scene.position);
 
