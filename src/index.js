@@ -9,7 +9,7 @@ var heightmapFShader = fs.readFileSync(path.join(__dirname, 'heightmap.fshader')
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 camera.up.set(0, 0, 1);
-camera.position.set(0, 0, 64);
+camera.position.set(0, 0, 400);
 camera.lookAt(scene.position);
 
 var renderer = new THREE.WebGLRenderer();
@@ -25,7 +25,7 @@ controls = new OrbitControls(camera, renderer.domElement);
 var bumpTexture = new THREE.ImageUtils.loadTexture('resources/heightmap.png');
 bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping;
 // magnitude of normal displacement
-var bumpScale = 2;
+var bumpScale = 65.0;
 
 var oceanTexture = new THREE.ImageUtils.loadTexture('resources/dirt-512.jpg');
 oceanTexture.wrapS = oceanTexture.wrapT = THREE.RepeatWrapping;
@@ -82,29 +82,27 @@ var customMaterial = new THREE.ShaderMaterial({
         // side: THREE.DoubleSide
 });
 
-var planeGeo = new THREE.PlaneGeometry(32, 32, 400, 400);
+var planeGeo = new THREE.PlaneGeometry(1000, 1000, 400, 400);
 var plane = new THREE.Mesh(planeGeo, customMaterial);
-plane.position.set(16, 16, 0);
-plane.rotateZ(-Math.PI / 2)
 scene.add(plane);
 
-var axisHelper = new THREE.AxisHelper(16);
-scene.add(axisHelper);
+var axisHelper = new THREE.AxisHelper( 50 );
+scene.add( axisHelper );
 
 // instantiate a loader
 var loader = new ColladaLoader();
 
 loader.load(
-    // resource URL
-    'resources/sample-scene.dae',
-    // Function when resource is loaded
-    function(collada) {
-        scene.add(collada.scene);
-    },
-    // Function called when download progresses
-    function(xhr) {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-    }
+	// resource URL
+	'resources/sample-scene.dae',
+	// Function when resource is loaded
+	function ( collada ) {
+		scene.add( collada.scene );
+	},
+	// Function called when download progresses
+	function ( xhr ) {
+		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+	}
 );
 
 var render = function() {
