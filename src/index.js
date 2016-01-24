@@ -1,13 +1,14 @@
 var fs = require('fs');
 var path = require('path');
-var THREE = require('three');
+var THREE = window.THREE = require('three');
 var OrbitControls = require('./OrbitControls');
+var ColladaLoader = require('./ColladaLoader');
 var heightmapVShader = fs.readFileSync(path.join(__dirname, 'heightmap.vshader'), 'utf-8');
 var heightmapFShader = fs.readFileSync(path.join(__dirname, 'heightmap.fshader'), 'utf-8');
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
-camera.position.set(0, 100, 400);
+camera.position.set(0, 0, 400);
 camera.lookAt(scene.position);
 
 var renderer = new THREE.WebGLRenderer();
@@ -17,7 +18,7 @@ window.addEventListener('load', function() {
     document.body.appendChild(renderer.domElement);
 });
 
-controls = new OrbitControls( camera, renderer.domElement );
+controls = new OrbitControls(camera, renderer.domElement);
 
 // texture used to generate "bumpiness"
 var bumpTexture = new THREE.ImageUtils.loadTexture('resources/heightmap.png');
@@ -77,7 +78,7 @@ var customMaterial = new THREE.ShaderMaterial({
     uniforms: customUniforms,
     vertexShader: heightmapVShader,
     fragmentShader: heightmapFShader
-    // side: THREE.DoubleSide
+        // side: THREE.DoubleSide
 });
 
 var planeGeo = new THREE.PlaneGeometry(1000, 1000, 400, 400);
@@ -85,6 +86,25 @@ var plane = new THREE.Mesh(planeGeo, customMaterial);
 plane.rotation.x = -Math.PI / 2;
 plane.position.y = -100;
 scene.add(plane);
+
+var axisHelper = new THREE.AxisHelper( 50 );
+scene.add( axisHelper );
+
+// instantiate a loader
+var loader = new ColladaLoader();
+
+loader.load(
+	// resource URL
+	'resources/sample-scene.dae',
+	// Function when resource is loaded
+	function ( collada ) {
+		scene.add( collada.scene );
+	},
+	// Function called when download progresses
+	function ( xhr ) {
+		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+	}
+);
 
 var render = function() {
     requestAnimationFrame(render);
