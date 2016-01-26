@@ -1,10 +1,12 @@
 var THREE = window.THREE = require('three');
 var OrbitControls = require('./OrbitControls');
 var ColladaLoader = require('./ColladaLoader');
+var alignByLandscape = require('./alignByLandscape.js');
+
+THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
-camera.up.set(0, 0, 1);
 camera.position.set(-16, -16, 16);
 camera.lookAt(scene.position);
 
