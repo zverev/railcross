@@ -65,6 +65,6 @@ var customMaterial = new THREE.ShaderMaterial({
         // side: THREE.DoubleSide
 });
 
-var planeGeo = new THREE.PlaneGeometry(32, 32, 400, 400);
+var planeGeo = new THREE.PlaneGeometry(32, 32, 64, 64);
 
 module.exports = new THREE.Mesh(planeGeo, customMaterial);
