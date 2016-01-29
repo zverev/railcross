@@ -65,6 +65,63 @@ var customMaterial = new THREE.ShaderMaterial({
         // side: THREE.DoubleSide
 });
 
-var planeGeo = new THREE.PlaneGeometry(32, 32, 64, 64);
+var planeSize = 32;
+var planeDetails = 64;
 
+var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDetails, planeDetails);
+
+var img = new Image();
+img.onload = function() {
+    var canvas = document.createElement('canvas');
+    canvas.width = planeDetails * 2;
+    canvas.height = planeDetails * 2;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, planeDetails * 2, planeDetails * 2);
+    window.cv = canvas;
+
+    var rawData = ctx.getImageData(0, 0, planeDetails * 2, planeDetails * 2).data;
+    var pixData = [];
+    for (var i = 0, c=0; i < rawData.length; i+=4, c++) {
+        pixData[c] = rawData[i];
+    }
+
+    console.log(pixData);
+    console.log(pixData.length);
+
+    planeGeo.dynamic = true;
+
+    for (var i = 0; i < planeDetails + 1; i++) {
+        for (var j = 0; j < planeDetails + 1; j++) {
+            planeGeo.vertices[i * planeDetails + j].z = getHeightValue(j, i);
+        }
+    }
+
+    function getHeightValue(x, y) {
+        var maxHeight = 2;
+
+        var imgSize = planeDetails * 2;
+        var s = 2;
+        var x1 = Math.ceil((x * s - s / 2) > 0 ? (x * s - s / 2) : 0);
+        var y1 = Math.ceil((y * s - s / 2) > 0 ? (y * s - s / 2) : 0);
+        var x2 = Math.ceil((x * s + s / 2) < imgSize ? (x * s + s / 2) : 0);
+        var y2 = Math.ceil((y * s + s / 2) < imgSize ? (y * s + s / 2) : 0);
+
+        return (getAverangePixelValue(ctx, x1, y1, x2, y2) / 255) * maxHeight;
+    }
+
+    function getAverangePixelValue(ctx, x1, y1, x2, y2) {
+        var v = 0;
+
+        for (var i = y1; i < y2; i++) {
+            for (var j = x1; j < x2; j++) {
+                v += pixData[i * canvas.height + j];
+            }
+        }
+
+        return v / (Math.abs(x2 - x1) * Math.abs(y2 - y1));
+    }
+
+    planeGeo.verticesNeedUpdate = true;
+};
+img.src = 'resources/heightmap.png';
 module.exports = new THREE.Mesh(planeGeo, customMaterial);

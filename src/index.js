@@ -35,6 +35,8 @@ loader.load(
     // Function when resource is loaded
     function(collada) {
         scene.add(collada.scene);
+        alignByLandscape(collada.scene.children, landscape);
+        drawBoundingBoxes(collada.scene.children, scene);
     },
     // Function called when download progresses
     function(xhr) {
@@ -49,3 +51,14 @@ var render = function() {
 };
 
 render();
+
+window.camera = camera;
+window.scene = scene;
+
+function drawBoundingBoxes(objects, scene) {
+    objects.map(function (object) {
+        var bbox = new THREE.BoundingBoxHelper( object, 0xd0f0a0 );
+        bbox.update();
+        scene.add( bbox );
+    });
+}
