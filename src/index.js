@@ -54,6 +54,7 @@ render();
 
 window.camera = camera;
 window.scene = scene;
+window.land = landscape;
 
 function drawBoundingBoxes(objects, scene) {
     objects.map(function (object) {
