@@ -11,7 +11,7 @@ orbitCamera.position.set(-16, -16, 16);
 orbitCamera.lookAt(scene.position);
 
 var spectatorCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
-spectatorCamera.position.set(0, -8, 3);
+spectatorCamera.position.set(-5.72, -15.27, 3.00);
 spectatorCamera.lookAt(scene.position);
 
 var renderer = new THREE.WebGLRenderer();

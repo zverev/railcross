@@ -98,6 +98,6 @@ img.onload = function() {
     planeGeo.verticesNeedUpdate = true;
 };
 img.src = 'resources/heightmap.png';
-// module.exports = new THREE.Mesh(planeGeo, customMaterial);
-module.exports = new THREE.Mesh(planeGeo, textureMaterial);
+module.exports = new THREE.Mesh(planeGeo, customMaterial);
+// module.exports = new THREE.Mesh(planeGeo, textureMaterial);
 // module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ color: 0xdddddd, wireframe: true }))
