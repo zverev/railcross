@@ -4,7 +4,13 @@ var ColladaLoader = require('./ColladaLoader');
 
 THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
 
+var bgColor = 0xaaaaaa;
+
 var scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2( bgColor, 0.075 );
+
+var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+scene.add( light );
 
 var orbitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
 orbitCamera.position.set(-16, -16, 16);
@@ -16,6 +22,7 @@ spectatorCamera.lookAt(scene.position);
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(bgColor);
 
 controls = new OrbitControls(orbitCamera, renderer.domElement);
 
@@ -29,7 +36,7 @@ var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
 
 // sample scene
-loadScene('resources/sample-scene.dae').then(function (s) {
+loadScene('resources/sample-scene.dae').then(function(s) {
     scene.add(s);
 })
 
