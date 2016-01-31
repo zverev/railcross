@@ -68,7 +68,7 @@ var customMaterial = new THREE.ShaderMaterial({
 var textureMaterial = new THREE.MeshBasicMaterial( { map: bumpTexture } );
 
 var planeSize = 32;
-var planeDetails = 32;
+var planeDetails = 64;
 var maxHeight = 2;
 
 var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDetails, planeDetails);
@@ -98,6 +98,6 @@ img.onload = function() {
     planeGeo.verticesNeedUpdate = true;
 };
 img.src = 'resources/heightmap.png';
-//module.exports = new THREE.Mesh(planeGeo, customMaterial);
-//module.exports = new THREE.Mesh(planeGeo, textureMaterial);
-module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ color: 0xdddddd, wireframe: true }))
+module.exports = new THREE.Mesh(planeGeo, customMaterial);
+// module.exports = new THREE.Mesh(planeGeo, textureMaterial);
+// module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ color: 0xdddddd, wireframe: true }))

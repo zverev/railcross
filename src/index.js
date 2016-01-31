@@ -6,14 +6,18 @@ THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
 
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
-camera.position.set(-16, -16, 16);
-camera.lookAt(scene.position);
+var orbitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
+orbitCamera.position.set(-16, -16, 16);
+orbitCamera.lookAt(scene.position);
+
+var spectatorCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
+spectatorCamera.position.set(0, -8, 3);
+spectatorCamera.lookAt(scene.position);
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-controls = new OrbitControls(camera, renderer.domElement);
+controls = new OrbitControls(orbitCamera, renderer.domElement);
 
 // landscape
 var landscape = require('./landscape.js');
@@ -33,15 +37,24 @@ window.addEventListener('load', function() {
     document.body.appendChild(renderer.domElement);
 });
 
+var renderFromSpectatorCamera = false;
+window.addEventListener('keyup', function (e) {
+    if (e.keyCode === 83) {
+        // 's' key pressed
+        renderFromSpectatorCamera = !renderFromSpectatorCamera;
+    }
+})
+
 render();
 
-window.camera = camera;
+window.orbitCamera = orbitCamera;
 window.scene = scene;
 window.land = landscape;
 
 function render() {
     requestAnimationFrame(render);
-    renderer.render(scene, camera);
+    var cam = renderFromSpectatorCamera ? spectatorCamera : orbitCamera;
+    renderer.render(scene, cam);
     controls.update();
 }
 
