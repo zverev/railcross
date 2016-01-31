@@ -37,8 +37,19 @@ window.addEventListener('load', function() {
     document.body.appendChild(renderer.domElement);
 });
 
+window.addEventListener('resize', function() {
+    [orbitCamera, spectatorCamera].map(function(camera) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // controls.handleResize();
+})
+
 var renderFromSpectatorCamera = false;
-window.addEventListener('keyup', function (e) {
+window.addEventListener('keyup', function(e) {
     if (e.keyCode === 83) {
         // 's' key pressed
         renderFromSpectatorCamera = !renderFromSpectatorCamera;
