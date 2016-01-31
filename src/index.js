@@ -55,7 +55,7 @@ window.addEventListener('resize', function() {
     // controls.handleResize();
 })
 
-var renderFromSpectatorCamera = false;
+var renderFromSpectatorCamera = true;
 window.addEventListener('keyup', function(e) {
     if (e.keyCode === 83) {
         // 's' key pressed
@@ -66,6 +66,7 @@ window.addEventListener('keyup', function(e) {
 render();
 
 window.orbitCamera = orbitCamera;
+window.spectatorCamera = spectatorCamera;
 window.scene = scene;
 window.land = landscape;
 

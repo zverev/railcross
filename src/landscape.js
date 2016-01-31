@@ -26,6 +26,14 @@ var snowyTexture = new THREE.ImageUtils.loadTexture('resources/snow-512.jpg');
 snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping;
 
 var customUniforms = {
+    fogColor: {
+        type: "v4",
+        value: new THREE.Vector4(0.66, 0.66, 0.66, 1.0)
+    },
+    fogDensity: {
+        type: "f",
+        value: 0.075
+    },
     bumpTexture: {
         type: "t",
         value: bumpTexture
@@ -61,8 +69,8 @@ var customUniforms = {
 var customMaterial = new THREE.ShaderMaterial({
     uniforms: customUniforms,
     vertexShader: heightmapVShader,
-    fragmentShader: heightmapFShader
-        // side: THREE.DoubleSide
+    fragmentShader: heightmapFShader,
+    fog: false
 });
 
 var textureMaterial = new THREE.MeshBasicMaterial( { map: bumpTexture } );
@@ -99,8 +107,8 @@ img.onload = function() {
 };
 img.src = 'resources/heightmap.png';
 
-snowyTexture.repeat.set( 32, 32 );
-module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: snowyTexture  }))
-// module.exports = new THREE.Mesh(planeGeo, customMaterial);
+// snowyTexture.repeat.set( 64, 64 );
+// module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: snowyTexture  }))
+module.exports = new THREE.Mesh(planeGeo, customMaterial);
 // module.exports = new THREE.Mesh(planeGeo, textureMaterial);
 // module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ color: 0xdddddd, wireframe: true }))
