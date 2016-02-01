@@ -81,7 +81,7 @@ function render() {
     requestAnimationFrame(render);
     var cam = renderFromSpectatorCamera ? spectatorCamera : orbitCamera;
     renderer.render(scene, cam);
-    snow.material.uniforms.elapsedTime.value = elapsedTime * 5;
+    snow.material.uniforms.elapsedTime.value = elapsedTime * 2;
     controls.update();
 }
 

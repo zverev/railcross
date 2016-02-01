@@ -24,6 +24,14 @@ systemMaterial = new THREE.ShaderMaterial({
         elapsedTime: {
             type: 'f',
             value: 0
+        },
+        radiusX: {
+            type: 'f',
+            value: 0.1
+        },
+        radiusY: {
+            type: 'f',
+            value: 0.1
         }
     },
     vertexShader: snowVShader,
