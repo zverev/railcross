@@ -31,6 +31,11 @@ var landscape = require('./landscape.js');
 landscape.rotateZ(-Math.PI / 2);
 scene.add(landscape);
 
+// snow
+var snow = require('./snow.js');
+snow.position.z += 8;
+scene.add(snow);
+
 // axes
 var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
