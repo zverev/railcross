@@ -27,12 +27,10 @@ snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping;
 
 var customUniforms = {
     fogColor: {
-        type: "v4",
-        value: new THREE.Vector4(0.66, 0.66, 0.66, 1.0)
+        type: "c"
     },
     fogDensity: {
-        type: "f",
-        value: 0.075
+        type: "f"
     },
     bumpTexture: {
         type: "t",
@@ -70,7 +68,7 @@ var customMaterial = new THREE.ShaderMaterial({
     uniforms: customUniforms,
     vertexShader: landscapeVShader,
     fragmentShader: landscapeFShader,
-    fog: false
+    fog: true
 });
 
 var planeSize = 32;

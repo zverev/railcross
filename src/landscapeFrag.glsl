@@ -1,5 +1,5 @@
 uniform sampler2D snowyTexture;
-uniform vec4 fogColor;
+uniform vec3 fogColor;
 uniform float fogDensity;
 
 varying vec2 vUV;
@@ -23,8 +23,8 @@ void main() {
 
   vec4 vertexColor = (smoothstep(0.0, 0.65, vAmount)) * texture2D( snowyTexture, vUV * 10.0 );
 
-  //vec4 fogColor = vec4(fogColor3.x, fogColor3.y, fogColor3.z, 1);
+  // vec3 fogColor = vec3(0.66, 0.66, 0.66);
 
-  gl_FragColor = mix(vertexColor, fogColor, fogAmount);
+  gl_FragColor = mix(vertexColor, vec4(fogColor, 1.0), fogAmount);
   //gl_FragColor = fogColor;
 }
