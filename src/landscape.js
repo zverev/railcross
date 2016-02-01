@@ -1,8 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var THREE = require('three');
-var heightmapVShader = fs.readFileSync(path.join(__dirname, 'heightmap.vshader'), 'utf-8');
-var heightmapFShader = fs.readFileSync(path.join(__dirname, 'heightmap.fshader'), 'utf-8');
+var landscapeVShader = fs.readFileSync(path.join(__dirname, 'landscapeVert.glsl'), 'utf-8');
+var landscapeFShader = fs.readFileSync(path.join(__dirname, 'landscapeFrag.glsl'), 'utf-8');
 
 // texture used to generate "bumpiness"
 var bumpTexture = new THREE.ImageUtils.loadTexture('resources/heightmap.png');
@@ -68,15 +68,15 @@ var customUniforms = {
 //   that is within specially labelled script tags
 var customMaterial = new THREE.ShaderMaterial({
     uniforms: customUniforms,
-    vertexShader: heightmapVShader,
-    fragmentShader: heightmapFShader,
+    vertexShader: landscapeVShader,
+    fragmentShader: landscapeFShader,
     fog: false
 });
 
 var textureMaterial = new THREE.MeshBasicMaterial( { map: bumpTexture } );
 
 var planeSize = 32;
-var planeDetails = 64;
+var planeDetails = 128;
 var maxHeight = 2;
 
 var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDetails, planeDetails);
