@@ -4,7 +4,7 @@ var THREE = require('three');
 var snowVShader = fs.readFileSync(path.join(__dirname, 'snowVert.glsl'), 'utf-8');
 var snowFShader = fs.readFileSync(path.join(__dirname, 'snowFrag.glsl'), 'utf-8');
 
-var numParticles = 100;
+var numParticles = 3000;
 var width = 32;
 var height = 32;
 var depth = 16;
@@ -12,8 +12,14 @@ var depth = 16;
 var systemGeometry = new THREE.Geometry();
 
 systemMaterial = new THREE.ShaderMaterial({
-        vertexShader: snowVShader,
-        fragmentShader: snowFShader
+    uniforms: {
+        color: {
+            type: 'c',
+            value: new THREE.Color(0xFFFFFF)
+        }
+    },
+    vertexShader: snowVShader,
+    fragmentShader: snowFShader
 });
 
 for (var i = 0; i < numParticles; i++) {
@@ -30,4 +36,4 @@ function rand(value) {
     return value * (Math.random() - 0.5);
 }
 
-module.exports = new THREE.ParticleSystem( systemGeometry, systemMaterial );
+module.exports = new THREE.ParticleSystem(systemGeometry, systemMaterial);
