@@ -40,10 +40,16 @@ systemMaterial = new THREE.ShaderMaterial({
         scale: {
             type: 'f',
             value: 1.0
+        },
+        opacity: {
+            type: 'f',
+            value: 0.5
         }
     },
     vertexShader: snowVShader,
-    fragmentShader: snowFShader
+    fragmentShader: snowFShader,
+    blending: THREE.AdditiveBlending,
+    transparent: true
 });
 
 for (var i = 0; i < numParticles; i++) {
