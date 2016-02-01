@@ -1,3 +1,8 @@
+uniform float height;
+uniform float elapsedTime;
+
 void main() {
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    vec3 pos = position;
+    pos.z = mod(pos.z - elapsedTime, height);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
 }

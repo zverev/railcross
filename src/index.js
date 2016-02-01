@@ -33,7 +33,6 @@ scene.add(landscape);
 
 // snow
 var snow = require('./snow.js');
-snow.position.z += 8;
 scene.add(snow);
 
 // axes
@@ -68,6 +67,8 @@ window.addEventListener('keyup', function(e) {
     }
 })
 
+var clock = new THREE.Clock();
+
 render();
 
 window.orbitCamera = orbitCamera;
@@ -76,9 +77,11 @@ window.scene = scene;
 window.land = landscape;
 
 function render() {
+    var elapsedTime = clock.getElapsedTime();
     requestAnimationFrame(render);
     var cam = renderFromSpectatorCamera ? spectatorCamera : orbitCamera;
     renderer.render(scene, cam);
+    snow.material.uniforms.elapsedTime.value = elapsedTime * 5;
     controls.update();
 }
 

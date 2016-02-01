@@ -16,6 +16,14 @@ systemMaterial = new THREE.ShaderMaterial({
         color: {
             type: 'c',
             value: new THREE.Color(0xFFFFFF)
+        },
+        height: {
+            type: 'f',
+            value: depth
+        },
+        elapsedTime: {
+            type: 'f',
+            value: 0
         }
     },
     vertexShader: snowVShader,
