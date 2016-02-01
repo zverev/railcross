@@ -1,4 +1,8 @@
+var fs = require('fs');
+var path = require('path');
 var THREE = require('three');
+var snowVShader = fs.readFileSync(path.join(__dirname, 'snowVert.glsl'), 'utf-8');
+var snowFShader = fs.readFileSync(path.join(__dirname, 'snowFrag.glsl'), 'utf-8');
 
 var numParticles = 100;
 var width = 32;
@@ -6,8 +10,10 @@ var height = 32;
 var depth = 16;
 
 var systemGeometry = new THREE.Geometry();
-var systemMaterial = new THREE.ParticleBasicMaterial({
-    color: 0xFFFFFF
+
+systemMaterial = new THREE.ShaderMaterial({
+        vertexShader: snowVShader,
+        fragmentShader: snowFShader
 });
 
 for (var i = 0; i < numParticles; i++) {
