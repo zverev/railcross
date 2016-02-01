@@ -4,13 +4,10 @@ var ColladaLoader = require('./ColladaLoader');
 
 THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
 
-var bgColor = 0xaaaaaa;
+var bgColor = 0xD0D8D9;
 
 var scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2( bgColor, 0.075 );
-
-var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
-scene.add( light );
 
 var orbitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
 orbitCamera.position.set(-16, -16, 16);
