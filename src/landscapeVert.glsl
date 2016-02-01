@@ -12,7 +12,7 @@ void main()
     vAmount = bumpData.r; // assuming map is grayscale it doesn't matter if you use r, g, or b.
 
     // move the position along the normal
-    vec3 newPosition = position; // + normal * bumpScale * vAmount;
+    vec3 newPosition = position + normal * bumpScale * vAmount;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
 }

@@ -8,7 +8,7 @@ var landscapeFShader = fs.readFileSync(path.join(__dirname, 'landscapeFrag.glsl'
 var bumpTexture = new THREE.ImageUtils.loadTexture('resources/heightmap.png');
 bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping;
 // magnitude of normal displacement
-var bumpScale = 1.5;
+var bumpScale = 1.8;
 
 var oceanTexture = new THREE.ImageUtils.loadTexture('resources/dirt-512.jpg');
 oceanTexture.wrapS = oceanTexture.wrapT = THREE.RepeatWrapping;
@@ -73,42 +73,10 @@ var customMaterial = new THREE.ShaderMaterial({
     fog: false
 });
 
-var textureMaterial = new THREE.MeshBasicMaterial( { map: bumpTexture } );
-
 var planeSize = 32;
-var planeDetails = 128;
+var planeDetails = 64;
 var maxHeight = 2;
 
 var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDetails, planeDetails);
 
-var img = new Image();
-img.onload = function() {
-    var canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    var ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-    planeGeo.dynamic = true;
-
-    var s = canvas.width / (planeDetails + 1);
-
-    for (var i = 0; i < planeDetails + 1; i++) {
-        for (var j = 0; j < planeDetails + 1; j++) {
-            planeGeo.vertices[i * (planeDetails + 1) + j].z = getHeightValue(j, i);
-        }
-    }
-
-    function getHeightValue(j, i) {
-        return (ctx.getImageData(s * j, s * i, 1, 1).data[0] / 255) * maxHeight;
-    }
-
-    planeGeo.verticesNeedUpdate = true;
-};
-img.src = 'resources/heightmap.png';
-
-// snowyTexture.repeat.set( 64, 64 );
-// module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ map: snowyTexture  }))
 module.exports = new THREE.Mesh(planeGeo, customMaterial);
-// module.exports = new THREE.Mesh(planeGeo, textureMaterial);
-// module.exports = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({ color: 0xdddddd, wireframe: true }))
