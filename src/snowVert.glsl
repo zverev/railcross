@@ -1,5 +1,7 @@
 uniform float radiusX;
 uniform float radiusY;
+uniform float size;
+uniform float scale;
 uniform float height;
 uniform float elapsedTime;
 
@@ -9,5 +11,8 @@ void main() {
     pos.y += sin((elapsedTime + position.x) * 0.25) * radiusY;
     pos.z = mod(pos.z - elapsedTime, height);
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
+    vec4 mvPosition = modelViewMatrix * vec4( pos, 1.0 );
+
+    gl_PointSize = size * ( scale / length( mvPosition.xyz ) );
+    gl_Position = projectionMatrix * mvPosition;
 }

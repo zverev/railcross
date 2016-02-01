@@ -32,6 +32,14 @@ systemMaterial = new THREE.ShaderMaterial({
         radiusY: {
             type: 'f',
             value: 0.1
+        },
+        size: {
+            type: 'f',
+            value: 20.0
+        },
+        scale: {
+            type: 'f',
+            value: 1.0
         }
     },
     vertexShader: snowVShader,
