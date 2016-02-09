@@ -30,6 +30,7 @@ scene.add(landscape);
 
 // snow
 var snow = require('./snow.js');
+snow.position.y -= 8;
 scene.add(snow);
 
 // axes
