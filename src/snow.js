@@ -4,9 +4,9 @@ var THREE = require('three');
 var snowVShader = fs.readFileSync(path.join(__dirname, 'snowVert.glsl'), 'utf-8');
 var snowFShader = fs.readFileSync(path.join(__dirname, 'snowFrag.glsl'), 'utf-8');
 
-var numParticles = 3000;
+var numParticles = 25000;
 var width = 32;
-var height = 32;
+var height = 16;
 var depth = 16;
 
 var systemGeometry = new THREE.Geometry();
@@ -35,7 +35,7 @@ systemMaterial = new THREE.ShaderMaterial({
         },
         size: {
             type: 'f',
-            value: 20.0
+            value: 10.0
         },
         scale: {
             type: 'f',
@@ -44,12 +44,19 @@ systemMaterial = new THREE.ShaderMaterial({
         opacity: {
             type: 'f',
             value: 0.5
+        },
+        fogColor: {
+            type: 'c'
+        },
+        fogDensity: {
+            type: 'f'
         }
     },
     vertexShader: snowVShader,
     fragmentShader: snowFShader,
     blending: THREE.AdditiveBlending,
-    transparent: true
+    transparent: true,
+    fog: true
 });
 
 for (var i = 0; i < numParticles; i++) {

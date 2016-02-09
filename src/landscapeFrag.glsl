@@ -26,5 +26,5 @@ void main() {
   // vec3 fogColor = vec3(0.66, 0.66, 0.66);
 
   gl_FragColor = mix(vertexColor, vec4(fogColor, 1.0), fogAmount);
-  //gl_FragColor = fogColor;
+  // gl_FragColor = vec4(fogColor, 1.0);
 }
