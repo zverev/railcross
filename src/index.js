@@ -9,6 +9,12 @@ var bgColor = 0xD0D8D9;
 var scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2( bgColor, 0.075 );
 
+// Create light
+var light = new THREE.PointLight(0xffffff, 1.0);
+// We want it to be very close to our character
+light.position.set(0.0, 0.0, 10.0);
+scene.add(light);
+
 var orbitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
 orbitCamera.position.set(-16, -16, 16);
 orbitCamera.lookAt(scene.position);
