@@ -1,3 +1,5 @@
+uniform float textureResolution;
+
 #define PHONG
 uniform vec3 diffuse;
 uniform vec3 emissive;
@@ -430,9 +432,9 @@ void main() {
 #ifdef USE_MAP
 
 	// vec4 texelColor = texture2D( map, vUv );
-    float vAmount = 1.0;
-    // vec4 vertexColor = (smoothstep(0.0, 0.65, vAmount)) * texture2D( map, vUv * 10.0 );
-    vec4 vertexColor = texture2D(map, vUv * 10.0);
+    // float vAmount = 1.0;
+    // vec4 vertexColor = (smoothstep(0.0, 0.65, vAmount)) * texture2D( map, vUv * textureResolution );
+    vec4 vertexColor = texture2D(map, vUv * textureResolution);
 	// texelColor.xyz = inputToLinear( texelColor.xyz );
 
 	diffuseColor *= vertexColor;

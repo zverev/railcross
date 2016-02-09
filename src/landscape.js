@@ -30,6 +30,10 @@ var customMaterial = new THREE.ShaderMaterial({
         map: {
             type: 't',
             value: snowyTexture
+        },
+        textureResolution: {
+            type: 'f',
+            value: 20.0
         }
     }),
     vertexShader: landscapeVShader,
