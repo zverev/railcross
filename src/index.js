@@ -78,6 +78,19 @@ window.addEventListener('keyup', function(e) {
     }
 });
 
+var sceneHasSnow = true;
+window.addEventListener('keyup', function(e) {
+    if (e.keyCode === 78) {
+        // 'n' key pressed
+        if (sceneHasSnow) {
+            scene.remove(snow);
+        } else {
+            scene.add(snow);
+        }
+        sceneHasSnow = !sceneHasSnow;
+    }
+});
+
 var clock = new THREE.Clock();
 
 render();
