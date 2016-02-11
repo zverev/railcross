@@ -5,14 +5,13 @@ var landscapeVShader = fs.readFileSync(path.join(__dirname, 'landscapeVert.glsl'
 var landscapeFShader = fs.readFileSync(path.join(__dirname, 'landscapeFrag.glsl'), 'utf-8');
 
 var _ = require('lodash');
+var config = require('./config.js');
 
 // texture used to generate "bumpiness"
-var bumpTexture = new THREE.ImageUtils.loadTexture('resources/heightmap.png');
-bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping;
-// magnitude of normal displacement
-var bumpScale = 1.8;
+var heightmapTexture = new THREE.ImageUtils.loadTexture(config.landscapeHeightmapTexture);
+heightmapTexture.wrapS = heightmapTexture.wrapT = THREE.RepeatWrapping;
 
-var snowyTexture = new THREE.ImageUtils.loadTexture('resources/snow-512.jpg');
+var snowyTexture = new THREE.ImageUtils.loadTexture(config.landscapeGroundTexture);
 snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping;
 
 // create custom material from the shader code above
@@ -20,12 +19,12 @@ snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping;
 var customMaterial = new THREE.ShaderMaterial({
     uniforms: _.extend({}, THREE.ShaderLib.phong.uniforms, {
         bumpTexture: {
-            type: "t",
-            value: bumpTexture
+            type: 't',
+            value: heightmapTexture
         },
         bumpScale: {
-            type: "f",
-            value: bumpScale
+            type: 'f',
+            value: config.landscapeMaxHeight
         },
         map: {
             type: 't',
@@ -33,7 +32,7 @@ var customMaterial = new THREE.ShaderMaterial({
         },
         textureResolution: {
             type: 'f',
-            value: 20.0
+            value: config.landscapeTextureResolution
         }
     }),
     vertexShader: landscapeVShader,
@@ -47,10 +46,11 @@ var customMaterial = new THREE.ShaderMaterial({
     }
 });
 
-var planeSize = 32;
-var planeDetails = 64;
-var maxHeight = 2;
-
-var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDetails, planeDetails);
+var planeGeo = new THREE.PlaneGeometry(
+    config.landscapePlaneSize,
+    config.landscapePlaneSize,
+    config.landscapePlaneDetails,
+    config.landscapePlaneDetails
+);
 
 module.exports = new THREE.Mesh(planeGeo, customMaterial);

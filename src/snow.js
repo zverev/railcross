@@ -4,10 +4,11 @@ var THREE = require('three');
 var snowVShader = fs.readFileSync(path.join(__dirname, 'snowVert.glsl'), 'utf-8');
 var snowFShader = fs.readFileSync(path.join(__dirname, 'snowFrag.glsl'), 'utf-8');
 
-var numParticles = 25000;
-var width = 32;
-var height = 16;
-var depth = 16;
+var config = require('./config.js');
+
+var width = config.landscapePlaneSize;
+var height = config.landscapePlaneSize / 2;
+var depth = config.landscapePlaneSize / 2;
 
 var systemGeometry = new THREE.Geometry();
 
@@ -15,7 +16,7 @@ systemMaterial = new THREE.ShaderMaterial({
     uniforms: {
         color: {
             type: 'c',
-            value: new THREE.Color(0xFFFFFF)
+            value: new THREE.Color(config.snowColor)
         },
         height: {
             type: 'f',
@@ -27,23 +28,23 @@ systemMaterial = new THREE.ShaderMaterial({
         },
         radiusX: {
             type: 'f',
-            value: 0.1
+            value: config.snowRadiusX
         },
         radiusY: {
             type: 'f',
-            value: 0.1
+            value: config.snowRadiusY
         },
         size: {
             type: 'f',
-            value: 10.0
+            value: config.snowSize
         },
         scale: {
             type: 'f',
-            value: 1.0
+            value: config.snowScale
         },
         opacity: {
             type: 'f',
-            value: 0.5
+            value: config.snowOpacity
         },
         fogColor: {
             type: 'c'
@@ -59,7 +60,7 @@ systemMaterial = new THREE.ShaderMaterial({
     fog: true
 });
 
-for (var i = 0; i < numParticles; i++) {
+for (var i = 0; i < config.snowNumParticles; i++) {
     var vertex = new THREE.Vector3(
         rand(width),
         rand(height),

@@ -1,28 +1,27 @@
 var THREE = window.THREE = require('three');
 var OrbitControls = require('./OrbitControls');
 var ColladaLoader = require('./ColladaLoader');
+var config = require('./config.js');
 
 THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
 
-var bgColor = 0xD0D8D9;
-
 var scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2( bgColor, 0.075 );
+scene.fog = new THREE.FogExp2( config.bgColor, config.fogDensity );
 
-var light = new THREE.HemisphereLight( bgColor, 0xe0e0e0, 1.1 );
+var light = new THREE.HemisphereLight( config.bgColor, config.lightColor, config.lightIntensity );
 scene.add( light );
 
 var orbitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
-orbitCamera.position.set(-16, -16, 16);
+orbitCamera.position.set.apply(orbitCamera.position, config.orbitCameraPosition);
 orbitCamera.lookAt(scene.position);
 
 var spectatorCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
-spectatorCamera.position.set(-5.72, -15.27, 3.00);
+spectatorCamera.position.set.apply(spectatorCamera.position, config.spectatorCameraPosition);
 spectatorCamera.lookAt(scene.position);
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(bgColor);
+renderer.setClearColor(config.bgColor);
 
 controls = new OrbitControls(orbitCamera, renderer.domElement);
 
