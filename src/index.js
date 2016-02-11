@@ -65,7 +65,18 @@ window.addEventListener('keyup', function(e) {
         // 's' key pressed
         renderFromSpectatorCamera = !renderFromSpectatorCamera;
     }
-})
+});
+
+window.addEventListener('keyup', function(e) {
+    if (e.keyCode === 70) {
+        // 'f' key pressed
+        if (scene.fog.density === config.fogDensity) {
+            scene.fog.density = 0.0;
+        } else {
+            scene.fog.density = config.fogDensity;
+        }
+    }
+});
 
 var clock = new THREE.Clock();
 
