@@ -1,10 +1,13 @@
+var cameraPosition = [-2, -1.5, -0.5];
 module.exports = {
     bgColor: 0xD0D8D9,
     lightColor: 0xE0E0E0,
     fogDensity: 0.075,
     lightIntensity: 1.1,
-    orbitCameraPosition: [-16, -16, -16],
-    spectatorCameraPosition: [-5.72, -15.27, 3.00],
+    // orbitCameraPosition: [-16, -16, -16],
+    orbitCameraPosition: cameraPosition,
+    // spectatorCameraPosition: [-5.72, -15.27, 3.00],
+    spectatorCameraPosition: cameraPosition,
     landscapeMaxHeight: 1.8,
     landscapePlaneSize: 32,
     landscapePlaneDetails: 64,

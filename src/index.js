@@ -6,10 +6,10 @@ var config = require('./config.js');
 THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
 
 var scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2( config.bgColor, config.fogDensity );
+scene.fog = new THREE.FogExp2(config.bgColor, config.fogDensity);
 
-var light = new THREE.HemisphereLight( config.bgColor, config.lightColor, config.lightIntensity );
-scene.add( light );
+var light = new THREE.HemisphereLight(config.bgColor, config.lightColor, config.lightIntensity);
+scene.add(light);
 
 var orbitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
 orbitCamera.position.set.apply(orbitCamera.position, config.orbitCameraPosition);
@@ -43,6 +43,13 @@ scene.add(axisHelper);
 loadScene('resources/sample-scene.dae').then(function(s) {
     scene.add(s);
 })
+
+var createFir = require('./fir.js');
+var fir = window.fir = createFir(0, 0, 0, 3);
+scene.add(fir);
+
+var gridHelper = new THREE.GridHelper(32, 1);
+scene.add(gridHelper);
 
 window.addEventListener('load', function() {
     document.body.appendChild(renderer.domElement);
