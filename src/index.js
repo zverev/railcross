@@ -45,7 +45,7 @@ loadScene('resources/sample-scene.dae').then(function(s) {
 })
 
 var createFir = require('./fir.js');
-var fir = window.fir = createFir(0, 0, 0, 3);
+var fir = window.fir = createFir(0, 0, 0, 5);
 scene.add(fir);
 
 var gridHelper = new THREE.GridHelper(32, 1);
