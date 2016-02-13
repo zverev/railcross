@@ -20,5 +20,6 @@ module.exports = {
     snowRadiusY: 0.1,
     snowSize: 10.0,
     snowScale: 1.0,
-    snowOpacity: 0.5
+    snowOpacity: 0.5,
+    firBranchTexture: 'resources/fir-branch-quad.png'
 }

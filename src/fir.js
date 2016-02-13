@@ -1,4 +1,8 @@
 var THREE = require('three');
+var config = require('./config');
+
+var firBranchTexture = new THREE.ImageUtils.loadTexture(config.firBranchTexture);
+firBranchTexture.wrapS = firBranchTexture.wrapT = THREE.RepeatWrapping;
 
 module.exports = function(x, y, z, h) {
     h = h || 2;
@@ -19,8 +23,8 @@ module.exports = function(x, y, z, h) {
         var branchPlane = new THREE.Mesh(
             createBranchPlaneGeo(i),
             new THREE.MeshBasicMaterial({
-                color: 0x006600,
-                side: THREE.DoubleSide
+                map: firBranchTexture,
+                transparent: true
             }));
         branchPlane.position.setZ(z + h - i * h / branchesNum);
         fir.add(branchPlane);
@@ -33,8 +37,12 @@ module.exports = function(x, y, z, h) {
         var branchSlope = 0.5;
         var radius = pMult * Math.log(i / branchesNum + 1.1);
         console.log(radius);
-        var geo = new THREE.CircleGeometry(radius, 4);
-        geo.vertices[0].z += branchSlope;
+        var geo = new THREE.PlaneGeometry(radius, radius, 2, 2);
+        geo.faces[0].c = 4;
+        geo.faces[1].a = 0;
+        geo.faces[6].b = 8;
+        geo.faces[7].c = 4;
+        geo.vertices[4].z += branchSlope;
         return geo;
     }
 }
