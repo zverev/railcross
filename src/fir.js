@@ -19,7 +19,7 @@ module.exports = function(h) {
     fir.add(trunk);
 
     var branchPlaneSize = h;
-    var branchesNum = 10;
+    var branchesNum = config.firBranchesNum;
     for (var i = 0; i < branchesNum; i++) {
         var branchPlane = new THREE.Mesh(
             createBranchPlaneGeo(i),
@@ -36,7 +36,7 @@ module.exports = function(h) {
 
     function createBranchPlaneGeo(i) {
         var pMult = h * 0.75;
-        var branchSlope = 0.5;
+        var branchSlope = config.firBranchesSlope;
         var radius = pMult * Math.log(i / branchesNum + 1.1);
         var geo = new THREE.PlaneGeometry(radius, radius, 2, 2);
         geo.faces[0].c = 4;
