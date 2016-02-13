@@ -1,4 +1,4 @@
-var cameraPosition = [-2, -1.5, -0.5];
+var cameraPosition = [-6, -6, 3];
 module.exports = {
     bgColor: 0xD0D8D9,
     lightColor: 0xE0E0E0,
