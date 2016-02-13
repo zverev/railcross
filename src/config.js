@@ -19,5 +19,7 @@ module.exports = {
     snowSize: 10.0,
     snowScale: 1.0,
     snowOpacity: 0.5,
-    firBranchTexture: 'resources/fir-branch-quad.png'
+    firBranchTexture: 'resources/fir-branch-quad.png',
+    forestMap: 'resources/forestmap.png',
+    forestTreesCount: 250
 }

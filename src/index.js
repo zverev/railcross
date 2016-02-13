@@ -44,9 +44,10 @@ loadScene('resources/sample-scene.dae').then(function(s) {
     scene.add(s);
 })
 
-var createFir = require('./fir.js');
-var fir = window.fir = createFir(0, 0, 0, 5);
-scene.add(fir);
+var createForest = require('./forest.js');
+createForest().then(function (forest) {
+    scene.add(forest);
+});
 
 var gridHelper = new THREE.GridHelper(32, 1);
 scene.add(gridHelper);

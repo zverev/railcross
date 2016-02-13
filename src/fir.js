@@ -4,8 +4,9 @@ var config = require('./config');
 var firBranchTexture = new THREE.ImageUtils.loadTexture(config.firBranchTexture);
 firBranchTexture.wrapS = firBranchTexture.wrapT = THREE.RepeatWrapping;
 
-module.exports = function(x, y, z, h) {
+module.exports = function(h) {
     h = h || 2;
+    var x = y = z = 0;
     var fir = new THREE.Object3D();
 
     var trunk = new THREE.Mesh(
@@ -37,7 +38,6 @@ module.exports = function(x, y, z, h) {
         var pMult = h * 0.75;
         var branchSlope = 0.5;
         var radius = pMult * Math.log(i / branchesNum + 1.1);
-        console.log(radius);
         var geo = new THREE.PlaneGeometry(radius, radius, 2, 2);
         geo.faces[0].c = 4;
         geo.faces[1].a = 0;
