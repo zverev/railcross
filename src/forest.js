@@ -11,13 +11,15 @@ module.exports = function() {
             canvas.height = image.height;
             var ctx = canvas.getContext('2d');
             ctx.drawImage(image, 0, 0, image.width, image.height);
-            for (var i = 0; i < config.forestTreesCount; i++) {
-                var p = getRandomPixel(canvas, ctx);
+            var treePixels = getTreePixels(canvas, ctx);
+            for (var i = 0; i < treePixels.length; i++) {
+                var p = treePixels[i];
                 var fir = createFir(2);
                 var l = config.landscapePlaneSize;
                 fir.position.set(-p.y / canvas.width * l + l / 2, -p.x / canvas.height * l + l / 2, 0);
                 forest.add(fir);
             }
+            console.log(getTreePixels(canvas, ctx));
             resolve(forest);
         });
     });
@@ -33,6 +35,20 @@ function getRandomPixel(canvas, ctx) {
         x: x,
         y: y
     }
+}
+
+function getTreePixels(canvas, ctx) {
+    var pixels = [];
+    var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (var i = 0; i < data.length; i += 4) {
+        if (data[i] > 127) {
+            pixels.push({
+                x: i / 4 % canvas.width,
+                y: Math.floor(i / 4 / canvas.height)
+            })
+        }
+    }
+    return pixels;
 }
 
 function loadImage(src) {
