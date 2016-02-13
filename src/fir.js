@@ -9,9 +9,9 @@ module.exports = function(x, y, z, h) {
     var fir = new THREE.Object3D();
 
     var trunk = new THREE.Mesh(
-        new THREE.CylinderGeometry(h / 100, h / 20, h, 4, 1),
+        new THREE.CylinderGeometry(h / 100, h / 30, h, 4, 1),
         new THREE.MeshBasicMaterial({
-            color: 0x412A25
+            color: 0x3D312E
         }));
     trunk.rotateX(Math.PI / 2)
     trunk.position.setZ(fir.position.z + h / 2);
@@ -26,6 +26,7 @@ module.exports = function(x, y, z, h) {
                 map: firBranchTexture,
                 transparent: true
             }));
+        branchPlane.rotateZ(Math.random() * Math.PI / 2);
         branchPlane.position.setZ(z + h - i * h / branchesNum);
         fir.add(branchPlane);
     }
