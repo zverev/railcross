@@ -6,6 +6,7 @@ module.exports = {
     lightIntensity: 1.1,
     orbitCameraPosition: cameraPosition,
     spectatorCameraPosition: cameraPosition,
+    railroadScene: 'resources/railroad.dae',
     landscapeMaxHeight: 1.8,
     landscapePlaneSize: 32,
     landscapePlaneDetails: 64,

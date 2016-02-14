@@ -40,7 +40,8 @@ var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
 
 // sample scene
-loadScene('resources/sample-scene.dae').then(function(s) {
+loadScene(config.railroadScene).then(function(s) {
+    s.position.setZ(config.landscapeMaxHeight);
     scene.add(s);
 })
 
