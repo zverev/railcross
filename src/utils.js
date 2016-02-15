@@ -1,4 +1,5 @@
 var THREE = require('three');
+var ColladaLoader = require('./ColladaLoader');
 
 module.exports = {
     loadScene: function(url) {
@@ -12,7 +13,6 @@ module.exports = {
                 // Function when resource is loaded
                 function(collada) {
                     resolve(collada.scene);
-                    drawBoundingBoxes(collada.scene.children, scene);
                 },
                 // Function called when download progresses
                 function(xhr) {

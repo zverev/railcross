@@ -1,4 +1,6 @@
 var THREE = require('three');
+var utils = require('./utils.js');
+var config = require('./config');
 
 var railroadPathA = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0.00, 0.00, 0.00),
@@ -31,30 +33,64 @@ var railShape = new THREE.Shape([
 ]);
 
 var railMaterial = new THREE.MeshLambertMaterial({
+    color: 0x707070,
+    wireframe: false
+});
+
+var tieMaterial = new THREE.MeshLambertMaterial({
     color: 0xff8000,
     wireframe: false
 });
 
+function createTies(path, tieModel) {
+    var tiesCount = 150;
+    var delta = 1 / tiesCount;
+    var tiesObj = new THREE.Object3D();
+    var tieGeo = tieModel.children[0].geometry;
+    for (var v = 0; v < 1; v += delta) {
+        var tieMesh = new THREE.Mesh(tieGeo, tieMaterial);
+        tieMesh.position.set(
+            path.getPointAt(v).x,
+            path.getPointAt(v).y,
+            path.getPointAt(v).z
+        );
+        tiesObj.add(tieMesh);
+    }
+
+    return tiesObj;
+}
+
 module.exports = function() {
-    return new Promise(function(resolve) {
-        var railroad = new THREE.Object3D();
+    return utils.loadScene(config.railroadTieModel).then(function(railroadTieScene) {
+        var tieModel = railroadTieScene.children[0];
+        return new Promise(function(resolve) {
+            var railroad = new THREE.Object3D();
 
-        var railroadA = new THREE.Mesh(new THREE.ExtrudeGeometry(railShape, {
-            steps: 200,
-            bevelEnabled: false,
-            extrudePath: railroadPathA
-        }), railMaterial);
-        railroadA.position.set(-7.3, -13.7, 0);
-        railroad.add(railroadA);
+            var railroadA = new THREE.Mesh(new THREE.ExtrudeGeometry(railShape, {
+                steps: 200,
+                bevelEnabled: false,
+                extrudePath: railroadPathA
+            }), railMaterial);
+            railroadA.position.set(-7.3, -13.7, 0);
+            railroad.add(railroadA);
 
-        var railroadB = new THREE.Mesh(new THREE.ExtrudeGeometry(railShape, {
-            steps: 200,
-            bevelEnabled: false,
-            extrudePath: railroadPathB
-        }), railMaterial);
-        railroadB.position.set(-7.32, -14.19, 0);
-        railroad.add(railroadB);
+            var railroadB = new THREE.Mesh(new THREE.ExtrudeGeometry(railShape, {
+                steps: 200,
+                bevelEnabled: false,
+                extrudePath: railroadPathB
+            }), railMaterial);
+            railroadB.position.set(-7.32, -14.19, 0);
+            railroad.add(railroadB);
 
-        resolve(railroad);
+            var railroadATies = createTies(railroadPathA, tieModel);
+            railroadATies.position.set(railroadA.position.x, railroadA.position.y, railroadA.position.z);
+            railroad.add(railroadATies);
+
+            var railroadBTies = createTies(railroadPathB, tieModel);
+            railroadBTies.position.set(railroadB.position.x, railroadB.position.y, railroadB.position.z);
+            railroad.add(railroadBTies);
+
+            resolve(railroad);
+        });
     });
 }

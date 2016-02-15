@@ -6,7 +6,6 @@ module.exports = {
     lightIntensity: 1.1,
     orbitCameraPosition: cameraPosition,
     spectatorCameraPosition: cameraPosition,
-    railroadScene: 'resources/railroad.dae',
     landscapeMaxHeight: 1.8,
     landscapePlaneSize: 32,
     landscapePlaneDetails: 64,
@@ -24,5 +23,6 @@ module.exports = {
     firBranchesNum: 7,
     firBranchesSlope: 0.35,
     forestMap: 'resources/forestmap.png',
-    forestTreesCount: 250
+    forestTreesCount: 250,
+    railroadTieModel: 'resources/railroad-tie.dae',
 }

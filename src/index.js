@@ -1,6 +1,5 @@
 var THREE = window.THREE = require('three');
 var OrbitControls = require('./OrbitControls');
-var ColladaLoader = require('./ColladaLoader');
 var config = require('./config.js');
 
 THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
