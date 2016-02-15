@@ -40,15 +40,21 @@ var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
 
 // sample scene
-loadScene(config.railroadScene).then(function(s) {
-    s.position.setZ(config.landscapeMaxHeight);
-    scene.add(s);
+// loadScene(config.railroadScene).then(function(s) {
+//     s.position.setZ(config.landscapeMaxHeight);
+//     scene.add(s);
+// })
+
+var createRailroad = require('./railroad.js');
+createRailroad().then(function (railroad) {
+    railroad.position.setZ(config.landscapeMaxHeight);
+    scene.add(railroad);
 })
 
-var createForest = require('./forest.js');
+/*var createForest = require('./forest.js');
 createForest().then(function (forest) {
     scene.add(forest);
-});
+});*/
 
 var gridHelper = new THREE.GridHelper(32, 1);
 scene.add(gridHelper);
@@ -117,27 +123,6 @@ function render() {
     snow.material.uniforms.elapsedTime.value = elapsedTime * 2;
     controls.update();
 }
-
-function loadScene(url) {
-    return new Promise(function(resolve, reject) {
-        // instantiate a loader
-        var loader = new ColladaLoader();
-
-        loader.load(
-            // resource URL
-            url,
-            // Function when resource is loaded
-            function(collada) {
-                resolve(collada.scene);
-                drawBoundingBoxes(collada.scene.children, scene);
-            },
-            // Function called when download progresses
-            function(xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-            }
-        );
-    });
-};
 
 function drawBoundingBoxes(objects, scene) {
     objects.map(function(object) {
