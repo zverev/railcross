@@ -45,7 +45,7 @@ scene.add(axisHelper);
 // })
 
 var createRailroad = require('./railroad.js');
-createRailroad().then(function (railroad) {
+createRailroad().then(function(railroad) {
     railroad.position.setZ(config.landscapeMaxHeight - 0.015);
     scene.add(railroad);
 })
@@ -54,6 +54,11 @@ createRailroad().then(function (railroad) {
 createForest().then(function (forest) {
     scene.add(forest);
 });*/
+
+var createBushes = require('./bushes.js');
+createBushes().then(function(bushes) {
+    scene.add(bushes);
+});
 
 var gridHelper = new THREE.GridHelper(32, 1);
 scene.add(gridHelper);
