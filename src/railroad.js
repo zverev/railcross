@@ -47,13 +47,28 @@ function createTies(path, tieModel) {
     var delta = 1 / tiesCount;
     var tiesObj = new THREE.Object3D();
     var tieGeo = tieModel.children[0].geometry;
-    for (var v = 0; v < 1; v += delta) {
+
+    // no idea, why:
+    var up = new THREE.Vector3(1, 0, 0);
+
+    var axis = new THREE.Vector3( );
+    for (var t = 0; t < 1; t += delta) {
         var tieMesh = new THREE.Mesh(tieGeo, tieMaterial);
         tieMesh.position.set(
-            path.getPointAt(v).x,
-            path.getPointAt(v).y,
-            path.getPointAt(v).z
+            path.getPointAt(t).x,
+            path.getPointAt(t).y,
+            path.getPointAt(t).z
         );
+
+        // get the tangent to the curve
+        var tangent = path.getTangent( t ).normalize();
+        // calculate the axis to rotate around
+        axis.crossVectors( up, tangent ).normalize();
+        // calcluate the angle between the up vector and the tangent
+        var radians = Math.acos( up.dot( tangent ) );
+        // set the quaternion
+        tieMesh.quaternion.setFromAxisAngle( axis, radians );
+
         tiesObj.add(tieMesh);
     }
 
