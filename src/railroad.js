@@ -25,11 +25,19 @@ var railroadPathB = new THREE.CatmullRomCurve3([
     new THREE.Vector3(23.00, 5.97)
 ]);
 
+var rh = 0.05;
+var rw = 0.02;
+var rd = 0.20;
 var railShape = new THREE.Shape([
-    new THREE.Vector2(0, 0.1),
-    new THREE.Vector2(-0.1, 0.1),
-    new THREE.Vector2(-0.1, -0.1),
-    new THREE.Vector2(0, -0.1)
+    new THREE.Vector2(rh, rw/2 - rd/2),
+    new THREE.Vector2(-rh, rw/2 - rd/2),
+    new THREE.Vector2(-rh, -rw/2 - rd/2),
+    new THREE.Vector2(rh, -rw/2 - rd/2),
+
+    new THREE.Vector2(rh, rw/2 + rd/2),
+    new THREE.Vector2(-rh, rw/2 + rd/2),
+    new THREE.Vector2(-rh, -rw/2 + rd/2),
+    new THREE.Vector2(rh, -rw/2 + rd/2)
 ]);
 
 var railMaterial = new THREE.MeshLambertMaterial({
