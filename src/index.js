@@ -46,7 +46,7 @@ scene.add(axisHelper);
 
 var createRailroad = require('./railroad.js');
 createRailroad().then(function (railroad) {
-    railroad.position.setZ(config.landscapeMaxHeight);
+    railroad.position.setZ(config.landscapeMaxHeight - 0.015);
     scene.add(railroad);
 })
 

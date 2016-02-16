@@ -28,16 +28,17 @@ var railroadPathB = new THREE.CatmullRomCurve3([
 var rh = 0.05;
 var rw = 0.02;
 var rd = 0.20;
-var railShape = new THREE.Shape([
-    new THREE.Vector2(rh, rw/2 - rd/2),
-    new THREE.Vector2(-rh, rw/2 - rd/2),
-    new THREE.Vector2(-rh, -rw/2 - rd/2),
-    new THREE.Vector2(rh, -rw/2 - rd/2),
-
-    new THREE.Vector2(rh, rw/2 + rd/2),
-    new THREE.Vector2(-rh, rw/2 + rd/2),
-    new THREE.Vector2(-rh, -rw/2 + rd/2),
-    new THREE.Vector2(rh, -rw/2 + rd/2)
+var railShape1 = new THREE.Shape([
+    new THREE.Vector2(0, rw / 2 - rd / 2),
+    new THREE.Vector2(-rh, rw / 2 - rd / 2),
+    new THREE.Vector2(-rh, -rw / 2 - rd / 2),
+    new THREE.Vector2(0, -rw / 2 - rd / 2)
+]);
+var railShape2 = new THREE.Shape([
+    new THREE.Vector2(0, rw / 2 + rd / 2),
+    new THREE.Vector2(-rh, rw / 2 + rd / 2),
+    new THREE.Vector2(-rh, -rw / 2 + rd / 2),
+    new THREE.Vector2(0, -rw / 2 + rd / 2)
 ]);
 
 var railMaterial = new THREE.MeshLambertMaterial({
@@ -59,7 +60,7 @@ function createTies(path, tieModel) {
     // no idea, why:
     var up = new THREE.Vector3(1, 0, 0);
 
-    var axis = new THREE.Vector3( );
+    var axis = new THREE.Vector3();
     for (var t = 0; t < 1; t += delta) {
         var tieMesh = new THREE.Mesh(tieGeo, tieMaterial);
         tieMesh.position.set(
@@ -69,18 +70,33 @@ function createTies(path, tieModel) {
         );
 
         // get the tangent to the curve
-        var tangent = path.getTangent( t ).normalize();
+        var tangent = path.getTangent(t).normalize();
         // calculate the axis to rotate around
-        axis.crossVectors( up, tangent ).normalize();
+        axis.crossVectors(up, tangent).normalize();
         // calcluate the angle between the up vector and the tangent
-        var radians = Math.acos( up.dot( tangent ) );
+        var radians = Math.acos(up.dot(tangent));
         // set the quaternion
-        tieMesh.quaternion.setFromAxisAngle( axis, radians );
+        tieMesh.quaternion.setFromAxisAngle(axis, radians);
 
         tiesObj.add(tieMesh);
     }
 
     return tiesObj;
+}
+
+function createRailroad(path) {
+    var railroad = new THREE.Object3D();
+    railroad.add(new THREE.Mesh(new THREE.ExtrudeGeometry(railShape1, {
+        steps: 200,
+        bevelEnabled: false,
+        extrudePath: path
+    }), railMaterial));
+    railroad.add(new THREE.Mesh(new THREE.ExtrudeGeometry(railShape2, {
+        steps: 200,
+        bevelEnabled: false,
+        extrudePath: path
+    }), railMaterial));
+    return railroad;
 }
 
 module.exports = function() {
@@ -89,19 +105,11 @@ module.exports = function() {
         return new Promise(function(resolve) {
             var railroad = new THREE.Object3D();
 
-            var railroadA = new THREE.Mesh(new THREE.ExtrudeGeometry(railShape, {
-                steps: 200,
-                bevelEnabled: false,
-                extrudePath: railroadPathA
-            }), railMaterial);
+            var railroadA = createRailroad(railroadPathA);
             railroadA.position.set(-7.3, -13.7, 0);
             railroad.add(railroadA);
 
-            var railroadB = new THREE.Mesh(new THREE.ExtrudeGeometry(railShape, {
-                steps: 200,
-                bevelEnabled: false,
-                extrudePath: railroadPathB
-            }), railMaterial);
+            var railroadB = createRailroad(railroadPathB);
             railroadB.position.set(-7.32, -14.19, 0);
             railroad.add(railroadB);
 
