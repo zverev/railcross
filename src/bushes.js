@@ -11,7 +11,7 @@ module.exports = function() {
         });
         var sprite = new THREE.Sprite(material);
         sprite.position.set(-5.5, -13.7, 2);
-        sprite.scale.set(0.2, 0.2, 0.2);
+        sprite.scale.set(0.5, 0.5, 0.5);
         resolve(sprite);
     });
 }
