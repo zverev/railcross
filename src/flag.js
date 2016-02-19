@@ -382,20 +382,33 @@ module.exports = function() {
         };
         // cloth mesh
 
-        object = new THREE.Mesh(clothGeometry, clothMaterial);
-        object.position.set(0, 0, 0);
-        object.castShadow = true;
+        var flag = new THREE.Object3D();
 
-        object.customDepthMaterial = new THREE.ShaderMaterial({
+        var clothMesh = new THREE.Mesh(clothGeometry, clothMaterial);
+        clothMesh.position.set(0, 0, 0);
+        clothMesh.castShadow = true;
+
+        clothMesh.customDepthMaterial = new THREE.ShaderMaterial({
             uniforms: uniforms,
             vertexShader: clothVert,
             fragmentShader: clothFrag,
             side: THREE.DoubleSide
         });
 
-        object.animate = animate;
+        flag.add(clothMesh);
 
-        resolve(object);
+		var poleMat = new THREE.MeshPhongMaterial( { color: 0x808080, specular: 0x111111, shininess: 100 } );
+
+				var mesh = new THREE.Mesh( new THREE.BoxGeometry( 700, 10, 10 ), poleMat );
+				mesh.position.y = -250 + 750/2;
+				mesh.position.x = 235;
+				mesh.receiveShadow = true;
+				mesh.castShadow = true;
+				flag.add( mesh );
+
+        flag.animate = animate;
+
+        resolve(flag);
     });
 }
 
