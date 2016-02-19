@@ -62,6 +62,13 @@ createBushes().then(function(bushes) {
     scene.add(bushes);
 });
 
+var createFlag = require('./flag.js');
+var flag = null;
+createFlag().then(function(flg) {
+    flag = flg;
+    scene.add(flag);
+})
+
 var gridHelper = new THREE.GridHelper(32, 1);
 scene.add(gridHelper);
 
@@ -137,6 +144,9 @@ window.land = landscape;
 function render() {
     var elapsedTime = clock.getElapsedTime();
     requestAnimationFrame(render);
+    if (flag) {
+        flag.animate();
+    }
     var cam = renderFromSpectatorCamera ? spectatorCamera : orbitCamera;
     renderer.render(scene, cam);
     snow.material.uniforms.elapsedTime.value = elapsedTime * 2;
