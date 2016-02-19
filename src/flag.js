@@ -358,16 +358,16 @@ var rotate = true;
 
 module.exports = function() {
     return new Promise(function(resolve, reject) {
-        var clothTexture = new THREE.ImageUtils.loadTexture('resources/snow-512.jpg');
+        var clothTexture = new THREE.ImageUtils.loadTexture('resources/flag.png');
         clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
 
         // cloth material
 
         var clothMaterial = new THREE.MeshPhongMaterial({
-            // specular: 0x030303,
+            specular: 0x030303,
             map: clothTexture,
             side: THREE.DoubleSide,
-            // alphaTest: 0.5
+            alphaTest: 0.5
         });
 
         // cloth geometry
