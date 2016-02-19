@@ -47,7 +47,7 @@ var railMaterial = new THREE.MeshLambertMaterial({
 });
 
 var tieMaterial = new THREE.MeshLambertMaterial({
-    color: 0xff8000,
+    color: 0x909090,
     wireframe: false
 });
 
