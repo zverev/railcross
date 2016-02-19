@@ -50,10 +50,12 @@ createRailroad().then(function(railroad) {
     scene.add(railroad);
 })
 
-/*var createForest = require('./forest.js');
-createForest().then(function (forest) {
-    scene.add(forest);
-});*/
+var createForest = require('./forest.js');
+var forest = null;
+createForest().then(function(forst) {
+    forest = forst;
+    scene.add(forst);
+});
 
 var createBushes = require('./bushes.js');
 createBushes().then(function(bushes) {
@@ -107,6 +109,19 @@ window.addEventListener('keyup', function(e) {
             scene.add(snow);
         }
         sceneHasSnow = !sceneHasSnow;
+    }
+});
+
+var sceneHasForest = true;
+window.addEventListener('keyup', function(e) {
+    if (e.keyCode === 84) {
+        // 't' key pressed
+        if (sceneHasForest) {
+            scene.remove(forest);
+        } else {
+            scene.add(forest);
+        }
+        sceneHasForest = !sceneHasForest;
     }
 });
 
