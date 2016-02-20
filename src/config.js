@@ -25,5 +25,6 @@ module.exports = {
     forestMap: 'resources/forestmap.png',
     forestTreesCount: 250,
     railroadTieModel: 'resources/railroad-tie.dae',
-    bushTexture: 'resources/bush2.png'
+    bushTexture: 'resources/bush2.png',
+    flagBackground: 'resources/flag.png'
 }

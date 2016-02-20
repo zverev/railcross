@@ -2,6 +2,7 @@ var THREE = require('three');
 var ColladaLoader = require('./ColladaLoader');
 
 module.exports = {
+
     loadScene: function(url) {
         return new Promise(function(resolve, reject) {
             // instantiate a loader
@@ -20,5 +21,21 @@ module.exports = {
                 }
             );
         });
+    },
+
+    loadImage: function(url) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                var img = new Image();
+                img.onload = function() {
+                    resolve(img);
+                };
+                img.onerror = function() {
+                    reject();
+                }
+                img.src = url;
+            }, 0);
+        })
     }
+
 };

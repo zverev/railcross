@@ -6,6 +6,8 @@ var path = require('path');
 var clothVert = fs.readFileSync(path.join(__dirname, 'clothVert.glsl'), 'utf-8');
 var clothFrag = fs.readFileSync(path.join(__dirname, 'clothFrag.glsl'), 'utf-8');
 
+var utils = require('./utils.js');
+var config = require('./config.js');
 
 /*
  * Cloth Simulation using a relaxed constrains solver
@@ -358,8 +360,12 @@ var rotate = true;
 
 module.exports = function() {
     return new Promise(function(resolve, reject) {
-        var clothTexture = new THREE.ImageUtils.loadTexture('resources/flag.png');
-        clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
+
+        // var clothTexture = new THREE.ImageUtils.loadTexture('resources/flag.png');
+        // clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
+
+        var canvas = document.createElement('canvas');
+        var clothTexture = new THREE.Texture(canvas);
 
         // cloth material
 
@@ -368,6 +374,15 @@ module.exports = function() {
             map: clothTexture,
             side: THREE.DoubleSide,
             alphaTest: 0.5
+        });
+
+        utils.loadImage(config.flagBackground).then(function(img) {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            clothTexture.needsUpdate = true;
+            clothMaterial.needsUpdate = true;
         });
 
         // cloth geometry
@@ -397,14 +412,18 @@ module.exports = function() {
 
         flag.add(clothMesh);
 
-		var poleMat = new THREE.MeshPhongMaterial( { color: 0x808080, specular: 0x111111, shininess: 100 } );
+        var poleMat = new THREE.MeshPhongMaterial({
+            color: 0x808080,
+            specular: 0x111111,
+            shininess: 100
+        });
 
-				var mesh = new THREE.Mesh( new THREE.BoxGeometry( 700, 10, 10 ), poleMat );
-				mesh.position.y = -250 + 750/2;
-				mesh.position.x = 235;
-				mesh.receiveShadow = true;
-				mesh.castShadow = true;
-				flag.add( mesh );
+        var mesh = new THREE.Mesh(new THREE.BoxGeometry(700, 10, 10), poleMat);
+        mesh.position.y = -250 + 750 / 2;
+        mesh.position.x = 235;
+        mesh.receiveShadow = true;
+        mesh.castShadow = true;
+        flag.add(mesh);
 
         flag.animate = animate;
 
