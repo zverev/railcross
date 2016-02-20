@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "lodash": "^4.3.0",
+    "roman-numerals": "^0.3.2",
     "three": "^0.73.2"
   }
 }

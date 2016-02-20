@@ -8,6 +8,7 @@ var clothFrag = fs.readFileSync(path.join(__dirname, 'clothFrag.glsl'), 'utf-8')
 
 var utils = require('./utils.js');
 var config = require('./config.js');
+var toRoman = require('roman-numerals').toRoman;
 
 /*
  * Cloth Simulation using a relaxed constrains solver
@@ -379,11 +380,30 @@ module.exports = function() {
         utils.loadImage(config.flagBackground).then(function(img) {
             canvas.width = img.width;
             canvas.height = img.height;
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            var w = 16;
+            setInterval(function () {
+
+            drawFlag(canvas, img, w);
             clothTexture.needsUpdate = true;
             clothMaterial.needsUpdate = true;
+            w--;
+            if (!w) { w = 16; }
+        }, 500);
         });
+
+        function drawFlag(ctx, img, weeks){
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(canvas.height/2, canvas.height/2);
+            ctx.rotate(-Math.PI / 2);
+            var w = 75;
+            ctx.font = w + "px monospace";
+            ctx.fillStyle = "white";
+            var str = toRoman(weeks);
+            ctx.fillText(str, -100 + (4 - str.length) * w / 4, 30);
+            ctx.restore();
+        }
 
         // cloth geometry
         clothGeometry = new THREE.ParametricGeometry(clothFunction, cloth.w, cloth.h);
