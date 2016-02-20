@@ -66,10 +66,10 @@ var createFlag = require('./flag.js');
 var flag = null;
 createFlag().then(function(flg) {
     flag = flg;
-    flag.scale.set(0.0015, 0.0015, 0.0015);
+    flag.scale.set(0.001, 0.0015, 0.0015);
     flag.rotation.y = Math.PI / 2;
-    // flag.rotation.x = Math.PI / 4;
-    flag.position.set(-3, -12.8, 2.1);
+    flag.rotation.x = - Math.PI / 15;
+    flag.position.set(-3, -12.6, 2.4);
     scene.add(flag);
 })
 
