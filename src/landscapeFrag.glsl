@@ -1,4 +1,7 @@
 uniform float textureResolution;
+uniform sampler2D snowTexture;
+uniform sampler2D rocksTexture;
+varying float vAmount;
 
 #define PHONG
 uniform vec3 diffuse;
@@ -434,9 +437,16 @@ void main() {
 	// vec4 texelColor = texture2D( map, vUv );
     // float vAmount = 1.0;
     // vec4 vertexColor = (smoothstep(0.0, 0.65, vAmount)) * texture2D( map, vUv * textureResolution );
-    vec4 vertexColor = texture2D(map, vUv * textureResolution);
-	// texelColor.xyz = inputToLinear( texelColor.xyz );
 
+	vec4 vertexColor;
+	if (step(0.9, vAmount) == 0.00) {
+		vertexColor = texture2D(snowTexture, vUv * textureResolution);
+ 	} else {
+		vec4 rocky = (smoothstep(0.9, 0.99, vAmount)) * texture2D(rocksTexture, vUv * textureResolution);
+		vec4 snowy = (smoothstep(0.00, 0.9, vAmount) - smoothstep(0.9, 1.00, vAmount)) * texture2D(snowTexture, vUv * textureResolution);
+		vertexColor = rocky + snowy;
+	}
+	
 	diffuseColor *= vertexColor;
 
 #endif
