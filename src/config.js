@@ -20,11 +20,12 @@ module.exports = {
     snowSize: 10.0,
     snowScale: 1.0,
     snowOpacity: 0.5,
+    firHeight: 2,
     firBranchTexture: 'resources/fir-branch-quad.png',
     firBranchesNum: 7,
     firBranchesSlope: 0.35,
     forestMap: 'resources/forestmap.png',
-    forestTreesCount: 250,
+    forestPlaneTexture: 'resources/tree-pattern.png',
     railroadTieModel: 'resources/railroad-tie.dae',
     bushTexture: 'resources/bush2.png',
     flagBackground: 'resources/flag.png'

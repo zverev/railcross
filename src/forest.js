@@ -14,16 +14,41 @@ module.exports = function() {
             var treePixels = getTreePixels(canvas, ctx);
             for (var i = 0; i < treePixels.length; i++) {
                 var p = treePixels[i];
-                var fir = createFir(2);
+                var fir = createFir(config.firHeight);
                 var l = config.landscapePlaneSize;
                 fir.position.set(-p.y / canvas.width * l + l / 2, -p.x / canvas.height * l + l / 2, 0);
                 forest.add(fir);
             }
-            console.log(getTreePixels(canvas, ctx));
+
+            var forestPlaneTexture = new THREE.ImageUtils.loadTexture(config.forestPlaneTexture);
+            forestPlaneTexture.wrapS = forestPlaneTexture.wrapT = THREE.RepeatWrapping;
+            forestPlaneTexture.repeat.set(12, 1);
+
+            for (var i = 0; i < 4; i++) {
+                var plane = createForestPlane(forestPlaneTexture);
+                plane.position.setY(-i * 4 + 10);
+                plane.position.setX(i % 2 - 0.5 - 10);
+                forest.add(plane);
+            }
+
             resolve(forest);
         });
     });
 };
+
+function createForestPlane(map) {
+    var geometry = new THREE.PlaneGeometry(32, 2);
+    var material = new THREE.MeshPhongMaterial({
+        transparent: true,
+        side: THREE.DoubleSide,
+        map: map
+    });
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.rotateX(Math.PI / 2);
+    //mesh.rotateY(Math.PI/3)
+    mesh.position.setZ(1.5);
+    return mesh;
+}
 
 function getRandomPixel(canvas, ctx) {
     do {

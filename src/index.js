@@ -35,8 +35,8 @@ snow.position.y -= 8;
 scene.add(snow);
 
 // axes
-var axisHelper = new THREE.AxisHelper(50);
-scene.add(axisHelper);
+// var axisHelper = new THREE.AxisHelper(50);
+// scene.add(axisHelper);
 
 // sample scene
 // loadScene(config.railroadScene).then(function(s) {
@@ -73,8 +73,8 @@ createFlag().then(function(flg) {
     scene.add(flag);
 })
 
-var gridHelper = new THREE.GridHelper(32, 1);
-scene.add(gridHelper);
+// var gridHelper = new THREE.GridHelper(32, 1);
+// scene.add(gridHelper);
 
 var fpsEl = document.createElement('div');
 fpsEl.className = 'fps-counter';
