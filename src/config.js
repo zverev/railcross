@@ -2,7 +2,7 @@ var cameraPosition = [-4.70, -14.30, 2.70];
 module.exports = {
     bgColor: 0xD0D8D9,
     lightColor: 0xE0E0E0,
-    fogDensity: 0.075,
+    fogDensity: 0.1,
     lightIntensity: 1.1,
     orbitCameraPosition: cameraPosition,
     spectatorCameraPosition: cameraPosition,
