@@ -94,7 +94,7 @@ var THREE = require('three');
 				var scope = this;
 
 				var loader = new THREE.XHRLoader( this.manager );
-				loader.setCrossOrigin( this.crossOrigin );
+				// loader.setCrossOrigin( this.crossOrigin );
 				loader.load( url, function ( text ) {
 
 					var parts = url.split( '/' );
