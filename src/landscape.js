@@ -11,8 +11,11 @@ var config = require('./config.js');
 var heightmapTexture = new THREE.ImageUtils.loadTexture(config.landscapeHeightmapTexture);
 heightmapTexture.wrapS = heightmapTexture.wrapT = THREE.RepeatWrapping;
 
-var snowyTexture = new THREE.ImageUtils.loadTexture(config.landscapeGroundTexture);
+var snowyTexture = new THREE.ImageUtils.loadTexture(config.landscapeSnowTexture);
 snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping;
+
+var rocksTexture = new THREE.ImageUtils.loadTexture(config.landscapeRocksTexture);
+rocksTexture.wrapS = rocksTexture.wrapT = THREE.RepeatWrapping;
 
 // create custom material from the shader code above
 //   that is within specially labelled script tags
@@ -26,9 +29,13 @@ var customMaterial = new THREE.ShaderMaterial({
             type: 'f',
             value: config.landscapeMaxHeight
         },
-        map: {
+        snowTexture: {
             type: 't',
             value: snowyTexture
+        },
+        rocksTexture: {
+            type: 't',
+            value: rocksTexture
         },
         textureResolution: {
             type: 'f',
