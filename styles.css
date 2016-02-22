@@ -5,3 +5,14 @@ html, body {
     padding: 0;
     overflow: hidden;
 }
+
+.fps-counter {
+    position: absolute;
+    z-index: 10000;
+    top: 5px;
+    left: 10px;
+    font-family: monospace;
+    font-size: 16px;
+    color: white;
+    text-shadow: 0 0 5px #121212;
+}

@@ -76,8 +76,11 @@ createFlag().then(function(flg) {
 var gridHelper = new THREE.GridHelper(32, 1);
 scene.add(gridHelper);
 
+var fpsEl = document.createElement('div');
+fpsEl.className = 'fps-counter';
 window.addEventListener('load', function() {
     document.body.appendChild(renderer.domElement);
+    document.body.appendChild(fpsEl);
 });
 
 window.addEventListener('resize', function() {
@@ -155,6 +158,7 @@ function render() {
     renderer.render(scene, cam);
     snow.material.uniforms.elapsedTime.value = elapsedTime * 2;
     controls.update();
+    framesNum++;
 }
 
 function drawBoundingBoxes(objects, scene) {
@@ -164,3 +168,9 @@ function drawBoundingBoxes(objects, scene) {
         scene.add(bbox);
     });
 }
+
+var framesNum = 0;
+setInterval(function() {
+    fpsEl.innerHTML = 'FPS: ' + framesNum;
+    framesNum = 0;
+}, 1000);
