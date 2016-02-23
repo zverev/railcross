@@ -1,4 +1,48 @@
 var THREE = window.THREE = require('three');
+
+var DigitalGlitch = require('./DigitalGlitch.js');
+
+var GlitchPass = require('./GlitchPass.js');
+var EffectComposer = require('./EffectComposer.js');
+var RenderPass = require('./RenderPass');
+
+// var renderer = new THREE.WebGLRenderer();
+// renderer.setPixelRatio(window.devicePixelRatio);
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// window.addEventListener('load', function() {
+//     document.body.appendChild(renderer.domElement);
+// });
+// camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+// camera.position.z = 400;
+//
+// scene = new THREE.Scene();
+// scene.fog = new THREE.Fog(0x000000, 1, 1000);
+//
+// object = new THREE.Object3D();
+// scene.add(object);
+//
+// composer = new EffectComposer(renderer);
+// composer.addPass(new RenderPass(scene, camera));
+//
+// glitchPass = new GlitchPass();
+// glitchPass.renderToScreen = true;
+// composer.addPass(glitchPass);
+//
+// function animate() {
+//
+//     requestAnimationFrame(animate);
+//
+//     var time = Date.now();
+//
+//     object.rotation.x += 0.005;
+//     object.rotation.y += 0.01;
+//
+//     composer.render();
+//     //renderer.render(scene, camera);
+// }
+//
+// animate();
+
 var OrbitControls = require('./OrbitControls');
 var config = require('./config.js');
 
@@ -15,12 +59,21 @@ orbitCamera.position.set.apply(orbitCamera.position, config.orbitCameraPosition)
 orbitCamera.lookAt(scene.position);
 
 var spectatorCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
+spectatorCamera.foof = true;
 spectatorCamera.position.set.apply(spectatorCamera.position, config.spectatorCameraPosition);
 spectatorCamera.lookAt(scene.position);
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(config.bgColor);
+
+composer = new EffectComposer(renderer);
+
+composer.addPass(new RenderPass(scene, spectatorCamera));
+
+glitchPass = new GlitchPass();
+glitchPass.renderToScreen = true;
+composer.addPass(glitchPass);
 
 controls = new OrbitControls(orbitCamera, renderer.domElement);
 
@@ -68,7 +121,7 @@ createFlag().then(function(flg) {
     flag = flg;
     flag.scale.set(0.001, 0.0015, 0.0015);
     flag.rotation.y = Math.PI / 2;
-    flag.rotation.x = - Math.PI / 15;
+    flag.rotation.x = -Math.PI / 15;
     flag.position.set(-3, -12.6, 2.4);
     scene.add(flag);
 })
@@ -155,7 +208,8 @@ function render() {
         flag.animate();
     }
     var cam = renderFromSpectatorCamera ? spectatorCamera : orbitCamera;
-    renderer.render(scene, cam);
+    composer.render();
+    //renderer.render(scene, cam);
     snow.material.uniforms.elapsedTime.value = elapsedTime * 2;
     controls.update();
     framesNum++;
