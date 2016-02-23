@@ -41,9 +41,13 @@ var railShape2 = new THREE.Shape([
     new THREE.Vector2(0, -rw / 2 + rd / 2)
 ]);
 
-var railMaterial = new THREE.MeshLambertMaterial({
-    color: 0x707070,
-    wireframe: false
+var railTexture = new THREE.ImageUtils.loadTexture(config.railTexture);
+railTexture.wrapS = railTexture.wrapT = THREE.RepeatWrapping;
+railTexture.repeat.set(4,4);
+
+var railMaterial = new THREE.MeshPhongMaterial({
+    map: railTexture,
+    shading: THREE.FlatShading
 });
 
 var tieMaterial = new THREE.MeshLambertMaterial({
