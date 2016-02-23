@@ -1,4 +1,6 @@
 var THREE = window.THREE = require('three');
+var utils = require('./utils.js');
+var moment = require('moment');
 
 var DigitalGlitch = require('./DigitalGlitch.js');
 
@@ -115,16 +117,24 @@ createBushes().then(function(bushes) {
     scene.add(bushes);
 });
 
-var createFlag = require('./flag.js');
 var flag = null;
-createFlag().then(function(flg) {
-    flag = flg;
-    flag.scale.set(0.001, 0.0015, 0.0015);
-    flag.rotation.y = Math.PI / 2;
-    flag.rotation.x = -Math.PI / 15;
-    flag.position.set(-3, -12.6, 2.4);
-    scene.add(flag);
-})
+utils.ajax(config.getTimeUrl).then(function(res) {
+    var createFlag = require('./flag.js');
+
+    var mayTime = moment(new Date(moment().year(), 04, 01));
+    var weeks = mayTime.diff(moment(), 'weeks');
+
+    if (weeks > 0) {
+        createFlag(weeks).then(function(flg) {
+            flag = flg;
+            flag.scale.set(0.001, 0.0015, 0.0015);
+            flag.rotation.y = Math.PI / 2;
+            flag.rotation.x = -Math.PI / 15;
+            flag.position.set(-3, -12.6, 2.4);
+            scene.add(flag);
+        });
+    }
+});
 
 // var gridHelper = new THREE.GridHelper(32, 1);
 // scene.add(gridHelper);

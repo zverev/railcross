@@ -30,5 +30,6 @@ module.exports = {
     bushTexture: 'resources/bush2.png',
     flagBackground: 'resources/flag.png',
     railTexture: 'resources/railTexture.png',
-    tieTexture: 'resources/tieTexture.png'
+    tieTexture: 'resources/tieTexture.png',
+    getTimeUrl: 'http://doobki.ru/gettime.php'
 }

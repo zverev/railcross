@@ -38,7 +38,7 @@ function loadImage(url) {
 }
 
 function getCoordinatesFromMap(imgPath) {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         loadImage(config.forestMap).then(function(image) {
             var canvas = document.createElement('canvas');
             window.canvas = canvas;
@@ -74,8 +74,30 @@ function getMapPixels(canvas, ctx) {
     return pixels;
 }
 
+function ajax(url) {
+    return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function() { // (3)
+            if (xhr.readyState != 4) return;
+
+            if (xhr.status === 200) {
+                resolve(xhr.responseText);
+            } else {
+                reject();
+            }
+
+        }
+        xhr.onerror = function () {
+            reject();
+        }
+        xhr.send(); // (1)
+    })
+}
+
 module.exports = {
     loadScene: loadScene,
     loadImage: loadImage,
-    getCoordinatesFromMap: getCoordinatesFromMap
+    getCoordinatesFromMap: getCoordinatesFromMap,
+    ajax: ajax
 }

@@ -359,7 +359,7 @@ var object;
 
 var rotate = true;
 
-module.exports = function() {
+module.exports = function(num) {
     return new Promise(function(resolve, reject) {
 
         // var clothTexture = new THREE.ImageUtils.loadTexture('resources/flag.png');
@@ -381,21 +381,17 @@ module.exports = function() {
             canvas.width = img.width;
             canvas.height = img.height;
             var w = 16;
-            setInterval(function () {
 
-            drawFlag(canvas, img, w);
+            drawFlag(canvas, img, num);
             clothTexture.needsUpdate = true;
             clothMaterial.needsUpdate = true;
-            w--;
-            if (!w) { w = 16; }
-        }, 500);
         });
 
-        function drawFlag(ctx, img, weeks){
+        function drawFlag(ctx, img, weeks) {
             var ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             ctx.save();
-            ctx.translate(canvas.height/2, canvas.height/2);
+            ctx.translate(canvas.height / 2, canvas.height / 2);
             ctx.rotate(-Math.PI / 2);
             var w = 75;
             ctx.font = w + "px monospace";
