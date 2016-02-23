@@ -29,6 +29,6 @@ module.exports = {
     railroadTieModel: 'resources/railroad-tie.dae',
     bushTexture: 'resources/bush2.png',
     flagBackground: 'resources/flag.png',
-    concreteTexture: 'resources/concrete.png',
-    railTexture: 'resources/rail.png'
+    railTexture: 'resources/railTexture.png',
+    tieTexture: 'resources/tieTexture.png'
 }

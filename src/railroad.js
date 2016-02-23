@@ -50,9 +50,14 @@ var railMaterial = new THREE.MeshPhongMaterial({
     shading: THREE.FlatShading
 });
 
-var tieMaterial = new THREE.MeshLambertMaterial({
-    color: 0x909090,
-    wireframe: false
+var tieTexture = new THREE.ImageUtils.loadTexture(config.tieTexture);
+tieTexture.wrapS = tieTexture.wrapT = THREE.RepeatWrapping;
+tieTexture.repeat.set(1, 1);
+
+var tieMaterial = new THREE.MeshPhongMaterial({
+    //color: 0x909090,
+    //wireframe: false,
+    map: tieTexture
 });
 
 function createTies(path, tieModel) {
