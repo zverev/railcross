@@ -6,6 +6,7 @@ firBranchTexture.wrapS = firBranchTexture.wrapT = THREE.RepeatWrapping;
 
 module.exports = function(h) {
     h = h || 2;
+    h *= THREE.Math.randFloat(0.8, 1.2);
     var x = y = z = 0;
     var fir = new THREE.Object3D();
 
@@ -28,7 +29,7 @@ module.exports = function(h) {
                 transparent: true
             }));
         branchPlane.rotateZ(Math.random() * Math.PI / 2);
-        branchPlane.position.setZ(z + h - i * h / branchesNum);
+        branchPlane.position.setZ(z + h - i * h / branchesNum - THREE.Math.randFloat(-0.2, 0.2) * h / branchesNum);
         fir.add(branchPlane);
     }
 

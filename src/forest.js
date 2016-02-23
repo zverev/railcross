@@ -1,3 +1,4 @@
+var THREE = require('three');
 var createFir = require('./fir.js');
 var config = require('./config.js');
 
